@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE grammar PUBLIC "-//W3C//DTD GRAMMAR 1.0//EN" "http://www.w3.org/TR/speech-grammar/grammar.dtd">
+<grammar xmlns="http://www.w3.org/2001/06/grammar" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xml:lang="en" xsi:schemaLocation="http://www.w3.org/2001/06/grammar                               http://www.w3.org/TR/speech-grammar/grammar.xsd" version="1.0" mode="voice" root="digits">
+
+<rule id="Main" scope="public">
+        <one-of>
+            <item> do   <tag> out.command = "do it"; </tag> </item>
+            <item> messages  <tag> out.command = "messages foo"; </tag> </item>
+            <item> change  <tag> out.command = "location"; </tag> </item>
+            <item> record  <tag> out.command = "record me"; </tag> </item>
+        </one-of>
+    </rule>
+
+    <rule id="Second" scope="public">
+        <one-of>
+            <item> apple </item>
+            <item> banana </item>
+            <item> pear </item>
+            <item> foo </item>
+            <item> bar </item>
+            <item> exit </item>
+        </one-of>
+    </rule>
+</grammar>
