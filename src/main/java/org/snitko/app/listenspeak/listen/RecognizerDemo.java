@@ -7,18 +7,18 @@ import java.util.List;
 
 public class RecognizerDemo {
     public static void main(String[] args) throws Exception {
-        //Recognizer recognizer = new Recognizer();
-        Recognizer recognizer = new Recognizer(true, "custom.grxml");
+        String whatWeWantToHear = "alexa";
 
-        recognizer.setStopCommand("lalalalala");
 
-        System.out.println("Say alexa, foo, bar or lalalalala for exit");
+        Recognizer recognizer = new Recognizer("custom.grxml");
+        recognizer.setStopCommand("lambda");
+
+        System.out.println("Say alexa or lambda for exit");
 
         List<String> matchedKeywords = new ArrayList<String>();
 
-        String whatWeWantToHear = "alexa";
         while (!matchedKeywords.contains(whatWeWantToHear)) {
-            matchedKeywords = recognizer.listenFor(whatWeWantToHear);
+            matchedKeywords = recognizer.listenLive(whatWeWantToHear);
             System.out.println("WE HEARD SO FAR ------> " + matchedKeywords);
         }
         System.out.println("HEARD \"" + whatWeWantToHear + "\" - BOOOYYAAAAAA");

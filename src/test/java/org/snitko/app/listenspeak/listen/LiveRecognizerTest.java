@@ -24,13 +24,13 @@ public class LiveRecognizerTest {
         configuration.setLanguageModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us.lm.bin");
 
         StreamSpeechRecognizer recognizer = new StreamSpeechRecognizer(configuration);
-        InputStream stream = LiveRecognizerTest.class
-                .getResourceAsStream("/edu/cmu/sphinx/tools/bandwidth/10001-90210-01803.wav");
+        InputStream stream = LiveRecognizerTest.class.getResourceAsStream("/edu/cmu/sphinx/tools/bandwidth/10001-90210-01803.wav");
         stream.skip(44);
 
         // Simple recognition with generic model
         recognizer.startRecognition(stream);
         SpeechResult result = recognizer.getResult();
+        recognizer.stopRecognition();
 
         assertEquals("one zero zero zero one", result.getHypothesis());
 
