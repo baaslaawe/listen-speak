@@ -24,12 +24,11 @@ public class SoundRecorder {
 
 
     private AudioFormat getAudioFormat() {
-        float sampleRate = 16000;
-        int sampleSizeInBits = 8;
-        int channels = 2;
+        float sampleRate = 8000.0F;
+        int sampleSizeInBits = 16;
+        int channels = 1;
         boolean signed = true;
-        boolean bigEndian = true;
-
+        boolean bigEndian = false;
         return new AudioFormat(sampleRate, sampleSizeInBits, channels, signed, bigEndian);
     }
 
@@ -69,7 +68,7 @@ public class SoundRecorder {
         targetDataLine = (TargetDataLine) AudioSystem.getLine(dataLineInfo);
         */
 
-                targetDataLine.open(audioFormat);
+        targetDataLine.open(audioFormat);
         targetDataLine.start(); // start capturing
 
         System.out.println("Start capturing...");
