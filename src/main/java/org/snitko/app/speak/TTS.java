@@ -1,4 +1,4 @@
-package org.snitko.app.listenspeak.speak;
+package org.snitko.app.speak;
 
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;

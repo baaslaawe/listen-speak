@@ -1,4 +1,4 @@
-package org.snitko.app.listenspeak.speak;
+package org.snitko.app.speak;
 
 public class TTSDemo {
     public static void main(String[] args) {

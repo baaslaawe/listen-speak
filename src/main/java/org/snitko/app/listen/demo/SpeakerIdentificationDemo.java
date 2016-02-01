@@ -1,4 +1,4 @@
-package org.snitko.app.listenspeak.listen.demo;
+package org.snitko.app.listen.demo;
 
 import edu.cmu.sphinx.api.Configuration;
 import edu.cmu.sphinx.api.SpeechResult;

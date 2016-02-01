@@ -7,12 +7,11 @@
  * WARRANTIES.
  */
 
-package org.snitko.app.listenspeak.listen.demo;
+package org.snitko.app.listen.demo;
 
 import edu.cmu.sphinx.api.Configuration;
 import edu.cmu.sphinx.api.Context;
 import edu.cmu.sphinx.api.SpeechResult;
-import edu.cmu.sphinx.demo.allphone.AllphoneDemo;
 import edu.cmu.sphinx.recognizer.Recognizer;
 import edu.cmu.sphinx.result.Result;
 import edu.cmu.sphinx.result.WordResult;

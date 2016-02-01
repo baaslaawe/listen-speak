@@ -1,4 +1,4 @@
-package org.snitko.app.listenspeak.listen;
+package org.snitko.app.listen;
 
 
 import edu.cmu.sphinx.api.*;
