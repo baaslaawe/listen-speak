@@ -143,6 +143,17 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <configuration>
+                    <mainClass>org.snitko.app.playback.PlaySoundMP3</mainClass>
+                    <!-- instead of this we can just use: "exec:java -Dexec.mainClass="com.test.Startup" -Dexec.args="foo" -Dexec.cleanupDaemonThreads=false" -->
+                    <cleanupDaemonThreads>false</cleanupDaemonThreads>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 </project>
