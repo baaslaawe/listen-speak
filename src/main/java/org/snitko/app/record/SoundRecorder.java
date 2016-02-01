@@ -43,7 +43,12 @@ public class SoundRecorder {
 
         Mixer.Info[] mixers = AudioSystem.getMixerInfo();
         for (Mixer.Info mixer : mixers) {
-            System.out.println("mixers are: " +mixer.toString());
+            System.out.println("mixers are: " + mixer.toString());
+        }
+
+        AudioFileFormat.Type[] types = AudioSystem.getAudioFileTypes();
+        for (AudioFileFormat.Type type : types) {
+            System.out.println("audio types are: " + type.toString());
         }
 
         AudioFormat audioFormat = getAudioFormat();
