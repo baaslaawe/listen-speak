@@ -100,7 +100,7 @@ public class SoundRecorder {
 
         // path of the wav file
         File wavFile = FileUtils.getFile(FileUtils.getUserDirectory(), "foo.wav");
-
+        System.out.println("File Path: " + wavFile.getAbsolutePath());
         // start recording
         recorder.start(wavFile);
     }
