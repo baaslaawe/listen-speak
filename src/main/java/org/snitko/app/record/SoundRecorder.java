@@ -43,7 +43,7 @@ public class SoundRecorder {
 
         Mixer.Info[] mixers = AudioSystem.getMixerInfo();
         for (Mixer.Info mixer : mixers) {
-            System.out.println("mixers are: " + mixer.toString());
+            System.out.printf("mixer name/desc/vendor/version: %s, %s, %s, %s\n", mixer.getName(), mixer.getDescription(), mixer.getVendor(), mixer.getVersion());
         }
 
         AudioFileFormat.Type[] types = AudioSystem.getAudioFileTypes();
@@ -52,6 +52,13 @@ public class SoundRecorder {
         }
 
         AudioFormat audioFormat = getAudioFormat();
+
+
+        targetDataLine = AudioSystem.getTargetDataLine(audioFormat);
+        System.out.println("targetDataLine: " + targetDataLine + "\n\tlineInfo" + targetDataLine.getLineInfo() + "\n\tformat: " + targetDataLine.getFormat());
+
+
+        /*
         DataLine.Info dataLineInfo = new DataLine.Info(TargetDataLine.class, audioFormat);
 
         // checks if system supports the data targetDataLine
@@ -59,9 +66,10 @@ public class SoundRecorder {
             System.out.println("Line not supported");
             System.exit(0);
         }
-
         targetDataLine = (TargetDataLine) AudioSystem.getLine(dataLineInfo);
-        targetDataLine.open(audioFormat);
+        */
+
+                targetDataLine.open(audioFormat);
         targetDataLine.start(); // start capturing
 
         System.out.println("Start capturing...");
