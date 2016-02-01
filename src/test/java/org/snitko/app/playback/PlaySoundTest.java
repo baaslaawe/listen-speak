@@ -33,27 +33,18 @@ import java.io.*;
 public class PlaySoundTest {
 
     private PlaySound playSound = new PlaySound();
-    public static final String PREFIX = "stream2file";
-    public static final String SUFFIX = ".tmp";
 
     @Test
     public void testPlayWav() throws Exception {
         InputStream stream = PlaySoundTest.class.getResourceAsStream("/avs-input.wav");
-        playSound.play(streamToFile(stream));
+        playSound.play(stream);
     }
 
     @Test
     public void testPlayMP3() throws Exception {
         InputStream stream = PlaySoundTest.class.getResourceAsStream("/avs-response.mp3");
-        playSound.play(streamToFile(stream));
+        playSound.play(stream);
     }
 
-    private File streamToFile (InputStream in) throws IOException {
-        final File tempFile = File.createTempFile(PREFIX, SUFFIX);
-        tempFile.deleteOnExit();
-        try (FileOutputStream out = new FileOutputStream(tempFile)) {
-            IOUtils.copy(in, out);
-        }
-        return tempFile;
-    }
+
 }

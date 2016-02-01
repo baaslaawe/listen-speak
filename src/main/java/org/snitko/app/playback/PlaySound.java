@@ -24,11 +24,10 @@ package org.snitko.app.playback;
  * SOFTWARE.
  */
 
+import org.apache.commons.io.IOUtils;
+
 import javax.sound.sampled.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 
 /**
@@ -36,9 +35,16 @@ import java.io.InputStream;
  */
 public class PlaySound {
 
+    public static final String PREFIX = "tempaudiojavafile";
+    public static final String SUFFIX = ".tmp";
+
+
     public void play(String soundFileToPlay) throws IOException {
-        File in = new File(soundFileToPlay);
-        play(in);
+        play(new File(soundFileToPlay));
+    }
+
+    public void play(InputStream soundFileToPlay) throws IOException {
+        play(streamToFile(soundFileToPlay));
     }
 
     public void play(File inputFile) {
@@ -91,6 +97,15 @@ public class PlaySound {
         }
     }
 
+
+    private File streamToFile(InputStream in) throws IOException {
+        final File tempFile = File.createTempFile(PREFIX, SUFFIX);
+        tempFile.deleteOnExit();
+        try (FileOutputStream out = new FileOutputStream(tempFile)) {
+            IOUtils.copy(in, out);
+        }
+        return tempFile;
+    }
 
     public static void main(String[] args)
             throws Exception {
