@@ -40,6 +40,12 @@ public class SoundRecorder {
 
 
     public void start(File waveFile) throws LineUnavailableException, IOException {
+
+        Mixer.Info[] mixers = AudioSystem.getMixerInfo();
+        for (Mixer.Info mixer : mixers) {
+            System.out.println("mixers are: " +mixer.toString());
+        }
+
         AudioFormat audioFormat = getAudioFormat();
         DataLine.Info dataLineInfo = new DataLine.Info(TargetDataLine.class, audioFormat);
 
