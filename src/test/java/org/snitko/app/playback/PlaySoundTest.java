@@ -2,9 +2,10 @@ package org.snitko.app.playback;
 
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
-import java.io.InputStream;
+import java.io.*;
 
 /**
  * The MIT License (MIT)
@@ -32,22 +33,27 @@ import java.io.InputStream;
 public class PlaySoundTest {
 
     private PlaySound playSound = new PlaySound();
+    public static final String PREFIX = "stream2file";
+    public static final String SUFFIX = ".tmp";
 
     @Test
     public void testPlayWav() throws Exception {
         InputStream stream = PlaySoundTest.class.getResourceAsStream("/avs-input.wav");
-        playSound.playWav(stream);
+        playSound.play(streamToFile(stream));
     }
 
     @Test
     public void testPlayMP3() throws Exception {
         InputStream stream = PlaySoundTest.class.getResourceAsStream("/avs-response.mp3");
-        playSound.playMP3(stream);
+        playSound.play(streamToFile(stream));
     }
 
-    @Test
-    public void testPlayWavWithMP3() throws Exception {
-        InputStream stream = PlaySoundTest.class.getResourceAsStream("/avs-input.wav");
-        playSound.playMP3(stream);
+    private File streamToFile (InputStream in) throws IOException {
+        final File tempFile = File.createTempFile(PREFIX, SUFFIX);
+        tempFile.deleteOnExit();
+        try (FileOutputStream out = new FileOutputStream(tempFile)) {
+            IOUtils.copy(in, out);
+        }
+        return tempFile;
     }
 }

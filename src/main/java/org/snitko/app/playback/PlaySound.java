@@ -24,10 +24,11 @@ package org.snitko.app.playback;
  * SOFTWARE.
  */
 
-import java.io.*;
-import sun.audio.*;
 import javax.sound.sampled.*;
-
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 
 /**
@@ -36,26 +37,13 @@ import javax.sound.sampled.*;
 public class PlaySound {
 
     public void play(String soundFileToPlay) throws IOException {
-        if (soundFileToPlay.toLowerCase().endsWith(".mp3"))
-            playMP3(soundFileToPlay);
-        else
-            playWav(soundFileToPlay);
+        File in = new File(soundFileToPlay);
+        play(in);
     }
 
+    public void play(File inputFile) {
 
-    public void playWav(String soundFileToPlay) throws IOException {
-        InputStream in = new FileInputStream(soundFileToPlay);
-        playWav(in);
-    }
-
-
-    public void playMP3(String soundFileToPlay) throws IOException {
-        InputStream in = new FileInputStream(soundFileToPlay);
-        playMP3(in);
-    }
-
-    public void playMP3(InputStream soundInputStream) {
-        try (final AudioInputStream in = AudioSystem.getAudioInputStream(soundInputStream)) {
+        try (final AudioInputStream in = AudioSystem.getAudioInputStream(inputFile)) {
 
             final AudioFormat outFormat = getOutFormat(in.getFormat());
             final DataLine.Info info = new DataLine.Info(SourceDataLine.class, outFormat);
@@ -79,6 +67,7 @@ public class PlaySound {
         }
     }
 
+/*
 
     public void playWav(InputStream soundInputStream) throws IOException {
         // create an audiostream from the inputstream
@@ -87,6 +76,7 @@ public class PlaySound {
         AudioPlayer.player.start(audioStream);
     }
 
+*/
 
     private AudioFormat getOutFormat(AudioFormat inFormat) {
         final int ch = inFormat.getChannels();
@@ -102,11 +92,6 @@ public class PlaySound {
     }
 
 
-
-
-
-
-
     public static void main(String[] args)
             throws Exception {
         // expect a sound file as args[0]
@@ -117,6 +102,6 @@ public class PlaySound {
         System.setProperty("java.awt.headless", "true");
 
         PlaySound playSound = new PlaySound();
-        playSound.playWav(args[0]);
+        playSound.play(args[0]);
     }
 }
