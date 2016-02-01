@@ -77,7 +77,11 @@ public class PlaySoundMP3 {
 
     public static void main(String[] args) {
         final PlaySoundMP3 player = new PlaySoundMP3();
-        player.play("/Users/vadim/output1452519755900.mp3");
+        if (args.length != 1) {
+            args = new String[]{"/Users/vadim/output1452519755900.mp3"};
+        }
+        player.play(args[0]);
+
     }
 
 }
