@@ -25,25 +25,86 @@ package org.snitko.app.playback;
  */
 
 import java.io.*;
-
 import sun.audio.*;
+import javax.sound.sampled.*;
+
 
 
 /**
  * A simple Java sound file example (i.e., Java code to play a sound file).
  */
 public class PlaySound {
-    public void playWav(String soundFileToPlay) throws IOException {
-        InputStream in = new FileInputStream(soundFileToPlay);
-        play(in);
+
+    public void play(String soundFileToPlay) throws IOException {
+        if (soundFileToPlay.toLowerCase().endsWith(".mp3"))
+            playMP3(soundFileToPlay);
+        else
+            playWav(soundFileToPlay);
     }
 
-    private void play(InputStream in) throws IOException {
+
+    public void playWav(String soundFileToPlay) throws IOException {
+        InputStream in = new FileInputStream(soundFileToPlay);
+        playWav(in);
+    }
+
+
+    public void playMP3(String soundFileToPlay) throws IOException {
+        InputStream in = new FileInputStream(soundFileToPlay);
+        playMP3(in);
+    }
+
+    public void playMP3(InputStream soundInputStream) {
+        try (final AudioInputStream in = AudioSystem.getAudioInputStream(soundInputStream)) {
+
+            final AudioFormat outFormat = getOutFormat(in.getFormat());
+            final DataLine.Info info = new DataLine.Info(SourceDataLine.class, outFormat);
+
+            try (final SourceDataLine sourceDataLine = (SourceDataLine) AudioSystem.getLine(info)) {
+
+                if (sourceDataLine != null) {
+                    sourceDataLine.open(outFormat);
+                    sourceDataLine.start();
+                    AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(outFormat, in);
+                    stream(audioInputStream, sourceDataLine);
+                    sourceDataLine.drain();
+                    sourceDataLine.stop();
+                }
+            }
+
+        } catch (UnsupportedAudioFileException
+                | LineUnavailableException
+                | IOException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+
+    public void playWav(InputStream soundInputStream) throws IOException {
         // create an audiostream from the inputstream
-        AudioStream audioStream = new AudioStream(in);
+        AudioStream audioStream = new AudioStream(soundInputStream);
         // play the audio clip with the audioplayer class
         AudioPlayer.player.start(audioStream);
     }
+
+
+    private AudioFormat getOutFormat(AudioFormat inFormat) {
+        final int ch = inFormat.getChannels();
+        final float rate = inFormat.getSampleRate();
+        return new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, rate, 16, ch, ch * 2, rate, false);
+    }
+
+    private void stream(AudioInputStream in, SourceDataLine sourceDataLine) throws IOException {
+        final byte[] buffer = new byte[4096];
+        for (int n = 0; n != -1; n = in.read(buffer, 0, buffer.length)) {
+            sourceDataLine.write(buffer, 0, n);
+        }
+    }
+
+
+
+
+
 
 
     public static void main(String[] args)

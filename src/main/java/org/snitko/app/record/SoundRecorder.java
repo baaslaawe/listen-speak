@@ -125,8 +125,7 @@ public class SoundRecorder {
 
 
     public static void main(String[] args) throws Exception {
-        final SoundRecorder recorder = new SoundRecorder();
-
+        SoundRecorder recorder = new SoundRecorder();
         // path of the wav file
         File wavFile = FileUtils.getFile(FileUtils.getUserDirectory(), "foo.wav");
         System.out.println("File Path: " + wavFile.getAbsolutePath());
