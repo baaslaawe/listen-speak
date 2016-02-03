@@ -36,7 +36,7 @@ public class SoundRecorder {
      * Defines an audio format.  Using standard telephony format for now
      */
     private AudioFormat getAudioFormat() {
-        float sampleRate = 8000.0F;
+        float sampleRate = 16000.0F;
         int sampleSizeInBits = 16;
         int channels = 1;
         boolean signed = true;
@@ -51,7 +51,11 @@ public class SoundRecorder {
 
 
     public void record(File waveFile, final long durationInSeconds) throws LineUnavailableException, IOException {
+        AudioInputStream audioInputStream = record(durationInSeconds);
+        AudioSystem.write(audioInputStream, AudioFileFormat.Type.WAVE, waveFile);
+    }
 
+    public AudioInputStream record(long durationInSeconds) throws LineUnavailableException {
         Mixer.Info[] mixers = AudioSystem.getMixerInfo();
         for (Mixer.Info mixer : mixers) {
             System.out.printf("mixer name/desc/vendor/version: %s, %s, %s, %s\n", mixer.getName(), mixer.getDescription(), mixer.getVendor(), mixer.getVersion());
@@ -80,11 +84,9 @@ public class SoundRecorder {
         targetDataLine.start(); // start capturing
 
         System.out.println("Start capturing...");
-        AudioInputStream ais = new AudioInputStream(targetDataLine);
+        AudioInputStream audioInputStream = new AudioInputStream(targetDataLine);
         System.out.println("Start recording...");
-
-        // start recording
-        AudioSystem.write(ais, AudioFileFormat.Type.WAVE, waveFile);
+        return audioInputStream;
     }
 
 
@@ -112,7 +114,7 @@ public class SoundRecorder {
                     System.out.println("Stopped Recording.  Message from the listener.");
                     targetDataLine.stop();
                     targetDataLine.close();
-                    System.out.println("Finished");
+                    System.out.println("Finished. Message from the listener.");
                 }
 
             }

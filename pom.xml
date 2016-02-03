@@ -11,6 +11,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <freetts.version>1.2.2</freetts.version>
+        <log4j.version>2.5</log4j.version>
         <sphinx4.version>5prealpha-SNAPSHOT</sphinx4.version>
     </properties>
 
@@ -130,6 +131,28 @@
             <artifactId>vorbisspi</artifactId>
             <version>1.0.3-1</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.triptheone</groupId>
+            <artifactId>joda-stopwatch</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-jul</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -149,10 +172,11 @@
                 <version>1.2.1</version>
                 <configuration>
                     <mainClass>org.snitko.app.playback.PlaySound</mainClass>
-                    <!-- instead of this we can just use: "exec:java -Dexec.mainClass="com.test.Startup" -Dexec.args="foo" -Dexec.cleanupDaemonThreads=false" -->
+                    <!-- instead of this we can just use: "exec:java -Dexec.mainClass="com.test.Startup" -Dexec.args="foo" -Dexec.cleanupDaemonThreads=false -->
                     <cleanupDaemonThreads>false</cleanupDaemonThreads>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 </project>
